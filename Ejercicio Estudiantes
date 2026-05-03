@@ -1,0 +1,112 @@
+Codigo en Java
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class ejercicio_1 {
+
+    public static void main(String[] args) {
+        File archivo = new File("estudiantes.txt");
+        if (!archivo.exists()) {
+            System.out.println("Error: el archivo no existe.");
+            return;
+        }
+        int totalEstudiantes = 0;
+        int aprobados = 0;
+        double sumaPromedios = 0;
+        try {
+            Scanner lector = new Scanner(archivo);
+            while (lector.hasNext()) {
+                String nombre = lector.next();
+                double n1 = lector.nextDouble();
+                double n2 = lector.nextDouble();
+                double n3 = lector.nextDouble();
+                double promedio = (n1 + n2 + n3) / 3.0;
+                System.out.println("Nombre: " + nombre);
+                System.out.println("Promedio: " + promedio);
+                if (promedio >= 9) {
+                    System.out.println("Estado: Excelente (Aprobado)");
+                    aprobados++;
+                } else if (promedio >= 7 && promedio <= 8) {
+                    
+                    System.out.println("Estado: Bueno (Aprobado)");
+                    aprobados++;
+                } else {
+                    
+                    System.out.println("Estado: Reprobado");
+                }
+                sumaPromedios += promedio;
+                totalEstudiantes++;
+                System.out.println("----------------------");
+            }
+            lector.close();
+            if (totalEstudiantes > 0) {
+                System.out.println("Total estudiantes: " + totalEstudiantes);
+                System.out.println("Total aprobados: " + aprobados);
+                System.out.println("Promedio general: " + sumaPromedios / totalEstudiantes);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error al leer el archivo.");
+        }
+    }
+}
+
+Codigo en C++
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+int main() {
+    ifstream lector("estudiantes.txt");
+
+    if (!lector.is_open()) {
+        cout << "Error: el archivo no existe." << endl;
+        return 1;
+    }
+
+    string nombre;
+    double n1, n2, n3;
+    int totalEstudiantes = 0;
+    int aprobados = 0;
+    double sumaPromedios = 0;
+
+    cout << fixed << setprecision(2);
+
+    while (lector >> nombre >> n1 >> n2 >> n3) {
+        double promedio = (n1 + n2 + n3) / 3.0;
+
+        cout << "Nombre: " << nombre << endl;
+        cout << "Promedio: " << promedio << endl;
+
+        if (promedio >= 9) {
+            cout << "Estado: Excelente (Aprobado)" << endl;
+            aprobados++;
+        } 
+        else if (promedio >= 7) {
+            cout << "Estado: Bueno (Aprobado)" << endl;
+            aprobados++;
+        } 
+        else {
+            cout << "Estado: Reprobado" << endl;
+        }
+
+        sumaPromedios += promedio;
+        totalEstudiantes++;
+        cout << "----------------------" << endl;
+    }
+
+    lector.close();
+
+    if (totalEstudiantes > 0) {
+        cout << "Total estudiantes: " << totalEstudiantes << endl;
+        cout << "Total aprobados: " << aprobados << endl;
+        cout << "Promedio general: " << (sumaPromedios / totalEstudiantes) << endl;
+    }
+
+    return 0;
+}
