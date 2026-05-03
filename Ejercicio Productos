@@ -1,0 +1,95 @@
+Codigo en Java
+
+package com.mycompany.prueba;
+public class ejercicio_2 {
+    public static void main(String[] args) {
+        java.io.File archivo = new java.io.File("productos.txt");
+        if (!archivo.exists()) {
+            System.out.println("Error: productos.txt no encontrado.");
+            return;
+        }
+        double total = 0.0;
+        String productoMayor = "";
+        double mayorSubtotal = -1.0;
+        try (java.util.Scanner sc = new java.util.Scanner(archivo)) {
+            System.out.printf("%-12s %8s %6s %12s%n", "Producto", "Precio", "Cant", "Subtotal");
+            while (sc.hasNext()) {
+                String nombre = sc.next();
+                if (!sc.hasNextDouble()) break;
+                double precio = sc.nextDouble();
+                int cant = sc.nextInt();
+                double subtotal = precio * cant;
+                System.out.printf("%-12s %8.2f %6d %12.2f%n", nombre, precio, cant, subtotal);
+                total += subtotal;
+                if (subtotal > mayorSubtotal) {
+                    mayorSubtotal = subtotal;
+                    productoMayor = nombre;
+                }
+            }
+            System.out.println("-------------------------------");
+            System.out.printf("Total: %.2f%n", total);
+            if (!productoMayor.isEmpty()) {
+                System.out.printf("Producto mayor subtotal: %s (%.2f)%n", productoMayor, mayorSubtotal);
+            }
+        } catch (java.io.FileNotFoundException e) {
+            System.out.println("Error al leer el archivo.");
+     } 
+    }
+}
+
+Codigo en C++
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+int main() {
+    ifstream lector("productos.txt");
+
+    if (!lector.is_open()) {
+        cout << "Error: productos.txt no encontrado." << endl;
+        return 1;
+    }
+
+    string nombre;
+    double precio;
+    int cant;
+    double total = 0.0;
+    string productoMayor = "";
+    double mayorSubtotal = -1.0;
+
+    cout << left << setw(12) << "Producto" 
+         << right << setw(8) << "Precio" 
+         << setw(8) << "Cant" 
+         << setw(14) << "Subtotal" << endl;
+
+    while (lector >> nombre >> precio >> cant) {
+        double subtotal = precio * cant;
+
+        cout << left << setw(12) << nombre 
+             << right << setw(8) << fixed << setprecision(2) << precio 
+             << setw(8) << cant 
+             << setw(14) << subtotal << endl;
+
+        total += subtotal;
+
+        if (subtotal > mayorSubtotal) {
+            mayorSubtotal = subtotal;
+            productoMayor = nombre;
+        }
+    }
+
+    cout << "--------------------------------------------" << endl;
+    cout << "Total: " << fixed << setprecision(2) << total << endl;
+
+    if (!productoMayor.empty()) {
+        cout << "Producto mayor subtotal: " << productoMayor 
+             << " (" << mayorSubtotal << ")" << endl;
+    }
+
+    lector.close();
+
+    return 0;
+}
