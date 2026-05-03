@@ -1,2 +1,2 @@
 # Manejo-de-Archivos
-Ejercicios en el que se demuestren el Manejo de Archivos en Java y C++
+Este repositorio contiene la resolución de una práctica académica enfocada en el manejo de archivos planos en C++ y Java, donde se implementaron algoritmos para procesar datos externos de estudiantes y productos. El proyecto integra la lectura de archivos .txt para automatizar el cálculo de promedios académicos con clasificaciones de Excelente, Bueno y Reprobado, así como la gestión de inventarios mediante el cálculo de subtotales, totales generales e identificación del producto con el precio más alto.
